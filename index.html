@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Vorschlag 2: Index-Liste - Bairytale</title>
+    <link href="https://fonts.googleapis.com/css2?family=Alegreya:wght@400;700;900&family=Alegreya+Sans:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #004D4D;
+            --secondary: #F5F5DC;
+            --text: #7A7A7A;
+            --accent: #D4AF37;
+            --dark-petrol: #003333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Alegreya Sans', sans-serif;
+            background-color: var(--secondary);
+            color: var(--text);
+            line-height: 1.6;
+            background-image: 
+                repeating-linear-gradient(
+                    45deg,
+                    transparent,
+                    transparent 10px,
+                    rgba(0, 77, 77, 0.03) 10px,
+                    rgba(0, 77, 77, 0.03) 20px
+                );
+        }
+
+        /* HEADER */
+        .portfolio-header {
+            background: var(--primary);
+            padding: 80px 40px;
+            text-align: center;
+            position: relative;
+        }
+
+        .portfolio-title {
+            font-family: 'Alegreya Sans', sans-serif;
+            font-weight: 900;
+            font-size: clamp(3rem, 8vw, 5rem);
+            color: var(--secondary);
+            margin-bottom: 20px;
+            transform: rotate(-2deg);
+        }
+
+        .portfolio-subtitle {
+            font-family: 'Alegreya', serif;
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+            color: var(--accent);
+            transform: rotate(1deg);
+        }
+
+        /* PORTFOLIO INDEX */
+        .portfolio-section {
+            padding: 100px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .portfolio-intro {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .intro-text {
+            font-family: 'Alegreya', serif;
+            font-size: 1.3rem;
+            color: var(--text);
+            line-height: 1.7;
+            background: white;
+            padding: 40px;
+            border: 4px solid var(--primary);
+            box-shadow: 8px 8px 0px var(--dark-petrol);
+            transform: rotate(-1deg);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .portfolio-index {
+            background: white;
+            border: 4px solid var(--primary);
+            box-shadow: 12px 12px 0px var(--dark-petrol);
+            padding: 60px 40px;
+            transform: rotate(1deg);
+        }
+
+        .index-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 4px solid var(--primary);
+        }
+
+        .index-title {
+            font-family: 'Alegreya Sans', sans-serif;
+            font-weight: 900;
+            font-size: 2.5rem;
+            color: var(--primary);
+            background: var(--accent);
+            padding: 15px 30px;
+            border: 3px solid var(--primary);
+            box-shadow: 6px 6px 0px var(--dark-petrol);
+            transform: rotate(-2deg);
+        }
+
+        .index-count {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--primary);
+            background: var(--secondary);
+            padding: 10px 20px;
+            border: 3px solid var(--primary);
+            transform: rotate(2deg);
+        }
+
+        /* PROJECT ENTRIES */
+        .project-list {
+            list-style: none;
+        }
+
+        .project-entry {
+            display: grid;
+            grid-template-columns: 120px 1fr 150px 60px;
+            gap: 30px;
+            align-items: center;
+            padding: 25px 0;
+            border-bottom: 2px solid var(--primary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .project-entry:hover {
+            background: var(--accent);
+            transform: translate(2px, 2px);
+            margin: 0 -20px;
+            padding: 25px 20px;
+        }
+
+        .project-entry.active {
+            background: var(--primary);
+            color: var(--secondary);
+            transform: translate(2px, 2px);
+            margin: 0 -20px;
+            padding: 25px 20px;
+        }
+
+        .project-entry.active .project-code,
+        .project-entry.active .project-title,
+        .project-entry.active .project-category {
+            color: var(--secondary);
+        }
+
+        .project-code {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--primary);
+            background: var(--accent);
+            padding: 8px 12px;
+            border: 2px solid var(--primary);
+            text-align: center;
+            transform: rotate(-1deg);
+        }
+
+        .project-title {
+            font-family: 'Alegreya Sans', sans-serif;
+            font-weight: 900;
+            font-size: 1.4rem;
+            color: var(--primary);
+            line-height: 1.3;
+        }
+
+        .project-category {
+            font-family: 'Alegreya', serif;
+            font-size: 1rem;
+            color: var(--text);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-align: center;
+            background: var(--secondary);
+            padding: 8px 15px;
+            border: 2px solid var(--primary);
+            transform: rotate(1deg);
+        }
+
+        .project-arrow {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary);
+            text-align: center;
+        }
+
+        /* STRIKETHROUGH EFFECT */
+        .project-entry:hover .project-title {
+            position: relative;
+        }
+
+        .project-entry:hover .project-title::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--primary);
+            transform: rotate(-1deg);
+        }
+
+        /* SPECIAL ENTRIES */
+        .project-entry:nth-child(3) .project-code {
+            background: var(--primary);
+            color: var(--secondary);
+        }
+
+        .project-entry:nth-child(5) {
+            transform: rotate(-0.5deg);
+        }
+
+        .project-entry:nth-child(7) .project-category {
+            background: var(--accent);
+            color: var(--primary);
+        }
+
+        /* DIVIDER LINES */
+        .section-divider {
+            height: 4px;
+            background: var(--primary);
+            margin: 40px 0;
+            transform: rotate(-1deg);
+            box-shadow: 2px 2px 0px var(--dark-petrol);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .project-entry {
+                grid-template-columns: 80px 1fr 40px;
+                gap: 15px;
+            }
+
+            .project-category {
+                display: none;
+            }
+
+            .portfolio-index {
+                transform: rotate(0deg);
+                padding: 40px 20px;
+            }
+
+            .index-header {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+
+            .index-title {
+                transform: rotate(0deg);
+                font-size: 2rem;
+            }
+
+            .index-count {
+                transform: rotate(0deg);
+            }
+
+            .project-entry:nth-child(5) {
+                transform: rotate(0deg);
+            }
+        }
+
+        /* FILTER BUTTONS */
+        .filter-section {
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            background: var(--secondary);
+            color: var(--primary);
+            border: 3px solid var(--primary);
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--primary);
+            color: var(--secondary);
+            transform: translate(2px, 2px);
+        }
+    </style>
+</head>
+<body>
+    <!-- PORTFOLIO HEADER -->
+    <section class="portfolio-header">
+        <h1 class="portfolio-title">Portfolio</h1>
+        <p class="portfolio-subtitle">Index // Alle Projekte auf einen Blick</p>
+    </section>
+
+    <!-- PORTFOLIO SECTION -->
+    <section class="portfolio-section">
+        <div class="portfolio-intro">
+            <div class="intro-text">
+                <strong>Das Archiv.</strong> Hier ist alles katalogisiert, indexiert und bereit zum Durchstöbern. Jeder Code führt zu einem Projekt, jeder Klick zu einer Geschichte. Willkommen in meiner Textbibliothek.
+            </div>
+        </div>
+
+        <div class="portfolio-index">
+            <div class="index-header">
+                <h2 class="index-title">Projekt-Index</h2>
+                <div class="index-count">09 // ENTRIES</div>
+            </div>
+
+            <div class="filter-section">
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">Alle</button>
+                    <button class="filter-btn" data-filter="copywriting">Copywriting</button>
+                    <button class="filter-btn" data-filter="storytelling">Storytelling</button>
+                    <button class="filter-btn" data-filter="ghostwriting">Ghostwriting</button>
+                </div>
+            </div>
+
+            <ul class="project-list">
+                <li class="project-entry active" data-category="copywriting">
+                    <div class="project-code">CW-001</div>
+                    <div class="project-title">Startup Landing Page Revolution</div>
+                    <div class="project-category">Copywriting</div>
+                    <div class="project-arrow">→</div>
+                </li>
+
+                <li class="project-entry" data-category="storytelling">
+                    <div class="project-code">ST-002</div>
+                    <div class="project-title">Brand Story Kampagne für Tech-Startup</div>
+                    <div class="project-category">Storytelling</div>
+                    <div class="project-arrow">→</div>
+                </li>
+
+                <div class="section-divider"></div>
+
+                <li class="project-entry" data-category="ghostwriting">
+                    <div class="project-code">GW-003</div>
+                    <div class="project-title">CEO Biografie: Vom Tellerwäscher zum Millionär</div>
+                    <div class="project-category">Ghostwriting</div>
+                    <div class="project-arrow">→</div>
+                </li>
+
+                <li class="project-entry" data-category="copywriting">
+                    <div class="project-code">CW-004</div>
+                    <div class="project-title">E-Commerce Produkttexte mit Persönlichkeit</div>
+                    <div class="project-category">Copywriting</div>
+                    <div class="project-arrow">→</div>
+                </li>
+
+                <li class="project-entry" data-category="storytelling">
+                    <div class="project-code">ST-005</div>
+                    <div class="project-title">Social Media Kampagne: #AuthenticStories</div>
+                    <div class="project-category">Storytelling</div>
+                    <div class="project-arrow">→</div>
+                </li>
+
+                <div class="section-divider"></div>
+
+                <li class="project-entry" data-category="copywriting">
+                    <div class="project-code">CW-006</div>
+                    <div class="project-title">Newsletter Serie: Wöchentliche Weisheiten</div>
+                    <div class="project-category">Copywriting</div>
+                    <div class="project-arrow">→</div>
+                </li>
+
+                <li class="project-entry" data-category="ghostwriting">
+                    <div class="project-code">GW-007</div>
+                    <div class="project-title">Unternehmens-Manifest: Vision wird Realität</div>
+                    <div class="project-category">Ghostwriting</div>
+                    <div class="project-arrow">→</div>
+                </li>
+
+                <li class="project-entry" data-category="storytelling">
+                    <div class="project-code">ST-008</div>
+                    <div class="project-title">Podcast Konzept: Geschichten die bewegen</div>
+                    <div class="project-category">Storytelling</div>
+                    <div class="project-arrow">→</div>
+                </li>
+
+                <li class="project-entry" data-category="copywriting">
+                    <div class="project-code">CW-009</div>
+                    <div class="project-title">Sales Funnel Texte: Vom Interesse zum Kauf</div>
+                    <div class="project-category">Copywriting</div>
+                    <div class="project-arrow">→</div>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <script>
+        // Filter functionality
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Remove active class from all buttons
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                // Add active class to clicked button
+                this.classList.add('active');
+                
+                const filter = this.dataset.filter;
+                const entries = document.querySelectorAll('.project-entry');
+                
+                entries.forEach(entry => {
+                    if (filter === 'all' || entry.dataset.category === filter) {
+                        entry.style.display = 'grid';
+                    } else {
+                        entry.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Project entry click functionality
+        document.querySelectorAll('.project-entry').forEach(entry => {
+            entry.addEventListener('click', function() {
+                // Remove active class from all entries
+                document.querySelectorAll('.project-entry').forEach(e => e.classList.remove('active'));
+                // Add active class to clicked entry
+                this.classList.add('active');
+                
+                // Here you would navigate to the individual project page
+                console.log('Navigate to project:', this.querySelector('.project-title').textContent);
+            });
+        });
+    </script>
+</body>
+</html>
+
